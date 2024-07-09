@@ -1,0 +1,22 @@
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 30%;
+  margin: 20px;
+}
+
+input {
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.p-error {
+  display: inline-block;
+  width: 100%;
+  background-color: #d98c7f;
+  padding: 10px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 10px;
+  margin: 5px;
+}
