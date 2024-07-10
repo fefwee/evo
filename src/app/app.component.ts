@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {interval, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,48 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'test';
+
+  public orderStream$!: Subscription | null;
+  public randomStream$!: Subscription | null;
+  public orderNum: number[] = [];
+  public randomNum: number[] = [];
+
+
+  public orderStartStream = (): void => {
+    if (this.orderStream$) {
+      this.unsubscribeOrderStream();
+    }
+    const orderInterval = interval(2000);
+    this.orderStream$ = orderInterval.subscribe((val) => this.orderNum.push(val));
+  }
+
+  public randomStartStream = (): void => {
+    if (this.randomStream$) {
+      this.unsubscribeRandomStream();
+    }
+    const randomInterval = interval(2000);
+    this.randomStream$ = randomInterval.subscribe((val) => this.randomNum.push(val));
+  }
+
+  public startAllStream = (): void => {
+    this.orderStartStream();
+    this.randomStartStream();
+  }
+
+  public unsubscribeOrderStream = (): void => {
+    if (this.orderStream$) {
+      this.orderStream$.unsubscribe();
+      this.orderStream$ = null;
+    }
+  }
+
+  public unsubscribeRandomStream = (): void => {
+    if (this.randomStream$) {
+      this.randomStream$.unsubscribe();
+      this.randomStream$ = null;
+    }
+  }
+
+  constructor() {
+  }
 }
