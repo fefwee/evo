@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {interval, Subscription} from "rxjs";
+import {interval, map, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent {
   public orderStream$!: Subscription | null;
   public randomStream$!: Subscription | null;
   public orderNum: number[] = [];
-  public randomNum: number[] = [];
+  public randomNum: string[] = [];
 
 
   public orderStartStream = (): void => {
@@ -27,7 +27,9 @@ export class AppComponent {
       this.unsubscribeRandomStream();
     }
     const randomInterval = interval(2000);
-    this.randomStream$ = randomInterval.subscribe((val) => this.randomNum.push(val));
+    this.randomStream$ = randomInterval.pipe(
+      map(() => `Random Value: ${Math.floor(Math.random() * 100)}`)
+    ).subscribe((val) => this.randomNum.push(val));
   }
 
   public startAllStream = (): void => {
