@@ -1,18 +1,26 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {ButtonModule} from 'primeng/button';
+import {HttpClientModule} from "@angular/common/http";
+import {RequestService} from "./services/request.service";
+import { SecondComponent } from './components/second/second.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SecondComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ButtonModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [RequestService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
