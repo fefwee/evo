@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ComponentRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {DynamicComponent} from "./components/dynamic/dynamic.component";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'test';
+
+  @ViewChild('dynamic', {read: ViewContainerRef})
+  private viewRef!: ViewContainerRef;
+  private componentRef!: ComponentRef<DynamicComponent>;
+
+  public addComponent = () => {
+    this.viewRef.clear();
+    this.componentRef = this.viewRef.createComponent(DynamicComponent);
+  }
+
+  public deleteComponent = () => {
+    this.viewRef.clear();
+  }
 }
